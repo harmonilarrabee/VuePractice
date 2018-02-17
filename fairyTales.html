@@ -1,0 +1,230 @@
+<head>
+  <title>Fairy Tales</title>
+  <script src="https://unpkg.com/vue"></script>
+  <style>
+    body {
+      background-color: #ebd5b3;
+      font-family: Brush Script MT;
+      margin: 0;
+    }
+    .header{
+      user-select: none;
+      background-color: #ebd5b3;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 48px;
+      cursor: 
+    }
+    .title{
+      text-decoration: underline;
+    }
+    .nav-arrow{
+      margin: 0;
+      padding: 0 25px;
+      user-select: none;
+    }
+    .story-wrapper{
+      display: flex;
+    }
+    .story{
+      font-size: 150%;
+      margin: 5px;
+      background-color: #ebd5b3;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: stretch;
+      flex: 1;
+    }
+    .story div{
+      padding: 4px;
+      background-color: #fff5d2;
+      margin: 2px;
+      border: 2px solid black;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      flex-grow: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div id = "app">
+    <div class="header">
+     <div @click="switchStory(-1)" class="nav-arrow">◀</div>
+     <div class="title">{{ story.title }}</div>
+     <div @click="switchStory(1)" class="nav-arrow">▶</div>
+    </div>
+
+    <div class="story-wrapper">
+      <div class="story">
+        <div class="name">Once upon a time, </div>
+        <div class="story-part" v-for="part in story.parts">{{ part }}</div>
+        <div class="name">they lived happily ever after. </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    ;
+    var stories = [
+      {
+        title: "Little Red Riding Hood",
+        parts: [
+          "Little Red Riding Hood went to the forest to ",
+          "visit her sick grandmother. She took some ",
+          "cake and lemonade with her in a basket. She ",
+          "met a wicked wolf that asked her which path ",
+          "she was taking. She replied, 'I'm taking the ",
+          "path that leads to my grandmother's cottage.' ",
+          "While Little Red Riding Hood was busy picking ",
+          "flowers to take to her grandmother, the wolf ",
+          "went to the cottage and swallowed the ",
+          "grandmother in one gulp. Then the wolf put on ",
+          "the grandmother's cap, got in her bed, covered ",
+          "up in blankets, and settled in to wait. Little ",
+          "Red Riding Hood arrived at the cottage and went ",
+          "into her grandmother's bedroom. She said, ",
+          "'Grandmother, what big ears you have,' and the ",
+          "wolf replied 'All the better to hear you with, ",
+          "my dear.' And so on with the grandmother's eyes: ",
+          "'All the better to see you with, my dear,' and ",
+          "her teeth: 'all the better to eat you with, my ",
+          "dear.' The wolf swallowed Little Red Riding Hood ",
+          "in one gulp and then fell asleep. A woodsman came ",
+          "by while the wolf was still asleep. The woodsman ",
+          "cut the wolf open with his ax and out popped ",
+          "Little Red Riding Hood and her grandmother. Then ",
+          "the woodsman, the grandmother, and Little Red ",
+          "Riding Hood all sat down by the fire and enjoyed ",
+          "cake and lemonade, and ",
+        ],
+      },
+
+      {
+        title: "Snow White and the Seven Dwarves",
+        parts: [
+          "there was a queen who named her only daughter ",
+          "Snow White because her skin was so fair and ",
+          "lovely. The queen died, and Snow White's father ",
+          "married a new queen who was evil, vain and wicked. ",
+          "Every morning she would stand in front of the ",
+          "mirror and say, 'Mirror, mirror on the wall, who is ",
+          "the fairest one of all?' The mirror always answered, ",
+          "'thee,' until one day it said that Snow White was ",
+          "the fairest one of all. The evil queen ordered one ",
+          "of her servants to take Snow White to the forest to ",
+          "have her killed. The servant, feeling sorry for Snow ",
+          "White, he let her go and brought back a wild boar's ",
+          "heart to show the queen so she would think he'd ",
+          "killed Snow White. Snow White, alone and hungry in ",
+          "the forest, came across a little cottage with seven ",
+          "tiny beds. When the dwarves who lived there came back ",
+          "from work they found Snow White and said she could ",
+          "stay with them if she cleaned and cooked. They all ",
+          "lived happily until one day when the mirror told the ",
+          "wicked queen that Snow White was still alive and ",
+          "living with the dwarves. The wicked queen disguised ",
+          "herself as a peddler and went to the cottage while ",
+          "the dwarves were at work. She gave Snow White a red ",
+          "apple that was poisoned. When Snow White took a bite ",
+          "of the apple, she fell down unconscious. The dwarves ",
+          "were very sad and built a glass coffin for her. One ",
+          "day, a prince came by and saw how beautiful Snow White ",
+          "was, and bent down to give her a kiss. Snow White woke ",
+          "up and they were married, and ",
+        ],
+      },
+
+      {
+        title: "Hansel and Gretel",
+        parts: [
+          "there were two siblings named Hansel and Gretel. ",
+          "They had poor parents and their family was ",
+          "starving, so they went out in search of food. ",
+          "They took one slice of bread along, which they ",
+          "used to mark a path back to their home by ",
+          "leaving crumbs along the way. After a while, ",
+          "they came upon a little house made of ",
+          "gingerbread. Hansel broke off a piece to eat. ",
+          "Suddenly, the door flew open and an old woman ",
+          "came out and invited them in. She fed them ",
+          "mountains of pancakes and fruit, and then tucked ",
+          "them into bed to sleep. What Hansel and Gretel ",
+          "didn't realize was that the old woman was ",
+          "fattening them up so she could use them in her ",
+          "favorite dish - roasted child! Now they were ",
+          "prisoners, and the old woman kept feeding them. ",
+          "When she asked them to stick their fingers out ",
+          "of their cell so she could judge how fat they ",
+          "were getting, Hansel held out a bone instead, ",
+          "which tricked the old woman because she had ",
+          "bad eyesight. The old woman got impatient and ",
+          "decided to cook them even though they didn't ",
+          "seem to be getting any fatter, but when she ",
+          "took them out of their cell to cook them, they ",
+          "pushed her into the oven and escaped. They ",
+          "filled their pockets with jewels and food and ",
+          "used the trail of bread crumbs to find their way ",
+          "back home, where ",
+        ],
+      },
+
+      {
+        title: "Cinderella",
+        parts: [
+          "there was a widower who remarried. His second wife was ",
+          "ill-natured, and she had two daughters who were just as ",
+          "unpleasant as their mother. The man had a beautiful, ",
+          "gentle daughter of his own named Ella, and she was soon ",
+          "to become the servant of her evil step-mother and ",
+          "step-sisters. They made her do all the chores around the ",
+          "house, and they called her Cinderella, after the cinders ",
+          "she swept out of the fireplace. The King needed to find a ",
+          "queen for his prince, so he threw a huge ball. The evil ",
+          "step-mother and step-sisters were invited, but Cinderella ",
+          "was not allowed to go. After they left, Cinderella's fairy ",
+          "godmother appeared and changed her dirty rags into a ",
+          "beautiful gown with glass slippers. Next the fairy ",
+          "godmother changed a pumpkin into a coach and some mice ",
+          "into footmen. Before Cinderella left, the fairy godmother ",
+          "warned her to be home before midnight, because the spell ",
+          "would only last untill then. Cinderella was a hit at the ",
+          "ball. The prince fell in love with her and asked her name. ",
+          "Just then the clock struck midnight, and Cinderella ran ",
+          "away. She was in such a hurry, she lost one of her glass ",
+          "slippers. It was the only clue the prince had to find his ",
+          "true love. He went to every home in the kingdom and had ",
+          "every single young girl try on the slipper to see if it ",
+          "fit. The evil step-sisters couldn't fit the slipper, but ",
+          "Cinderella did. The prince married her, and ",
+        ],
+      },
+    ];
+    var storyIndex = 0;
+    var app = new Vue({
+      el: '#app',
+      data: {
+        story: stories[0],
+      },
+      methods: {
+        switchStory: function(delta) {
+          storyIndex += delta;
+          if(storyIndex < 0){
+            storyIndex += stories.length;
+          }
+          storyIndex = storyIndex % stories.length;
+          this.story = stories[storyIndex];
+        }
+      }
+    });
+  </script>
+
+</body>
